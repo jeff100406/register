@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Dashboard{% endblock %}</title>
+
+
+    <style>
+
+        /* =========================
+           GENERAL
+           ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f5f7fb;
+            color: #222;
+        }
+
+
+        /* =========================
+           SIDEBAR
+           ========================= */
+
+        .sidebar {
+            position: fixed;
+
+            left: 0;
+            top: 0;
+
+            width: 230px;
+            height: 100vh;
+
+            background-color: #1f2937;
+
+            color: white;
+
+            padding-top: 25px;
+        }
+
+
+        .sidebar-title {
+            text-align: center;
+
+            font-size: 23px;
+            font-weight: bold;
+
+            margin-bottom: 35px;
+        }
+
+
+        .sidebar a {
+            display: block;
+
+            color: #d1d5db;
+
+            text-decoration: none;
+
+            padding: 14px 25px;
+
+            margin: 5px 12px;
+
+            border-radius: 7px;
+
+            font-size: 15px;
+
+            transition: 0.2s;
+        }
+
+
+        .sidebar a:hover {
+            background-color: #374151;
+
+            color: white;
+        }
+
+
+        /* =========================
+           MAIN AREA
+           ========================= */
+
+        .main {
+            margin-left: 230px;
+
+            min-height: 100vh;
+        }
+
+
+        /* =========================
+           TOP BAR
+           ========================= */
+
+        .topbar {
+            height: 70px;
+
+            background-color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: flex-end;
+
+            gap: 20px;
+
+            padding: 0 30px;
+
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+
+        .username {
+            font-weight: 600;
+
+            color: #374151;
+        }
+
+
+        /* =========================
+           LOGOUT BUTTON
+           ========================= */
+
+        .logout-button {
+            border: none;
+
+            background-color: #ef4444;
+
+            color: white;
+
+            padding: 9px 17px;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+            transition: 0.2s;
+        }
+
+
+        .logout-button:hover {
+            background-color: #dc2626;
+        }
+
+
+        /* =========================
+           PAGE CONTENT
+           ========================= */
+
+        .content {
+            padding: 35px;
+        }
+
+
+        /* =========================
+           PAGE TITLE
+           ========================= */
+
+        .page-title {
+            font-size: 28px;
+
+            margin-bottom: 8px;
+
+            color: #111827;
+        }
+
+
+        .page-subtitle {
+            color: #6b7280;
+
+            margin-bottom: 30px;
+        }
+
+
+        /* =========================
+           CARD
+           ========================= */
+
+        .card {
+            background-color: white;
+
+            border-radius: 10px;
+
+            padding: 25px;
+
+            border: 1px solid #e5e7eb;
+
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+
+        /* =========================
+           BUTTON
+           ========================= */
+
+        .button {
+            display: inline-block;
+
+            background-color: #2563eb;
+
+            color: white;
+
+            border: none;
+
+            padding: 10px 18px;
+
+            border-radius: 6px;
+
+            text-decoration: none;
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+            transition: 0.2s;
+        }
+
+
+        .button:hover {
+            background-color: #1d4ed8;
+        }
+
+
+        /* =========================
+           FORM
+           ========================= */
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-weight: 600;
+
+            color: #374151;
+        }
+
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+
+            width: 100%;
+
+            padding: 11px 12px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 6px;
+
+            font-size: 14px;
+
+            outline: none;
+        }
+
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+
+            border-color: #2563eb;
+
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+        }
+
+
+        /* =========================
+           TABLE
+           ========================= */
+
+        .table-container {
+            background-color: white;
+
+            border-radius: 10px;
+
+            border: 1px solid #e5e7eb;
+
+            overflow: hidden;
+        }
+
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+        }
+
+
+        th {
+            background-color: #f9fafb;
+
+            color: #374151;
+
+            font-weight: 600;
+
+            text-align: left;
+
+            padding: 14px;
+
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+
+        td {
+            padding: 14px;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            color: #4b5563;
+        }
+
+
+        tr:hover {
+            background-color: #f9fafb;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- SIDEBAR -->
+
+    <div class="sidebar">
+
+        <div class="sidebar-title">
+            Dashboard
+        </div>
+
+
+        <a href="{% url 'home' %}">
+            🏠 &nbsp; Home
+        </a>
+
+
+        <a href="{% url 'admission_form' %}">
+            📝 &nbsp; Admission
+        </a>
+
+
+        <a href="{% url 'stu_details' %}">
+            👥 &nbsp; Students
+        </a>
+
+    </div>
+
+
+
+    <!-- MAIN -->
+
+    <div class="main">
+
+
+        <!-- HEADER -->
+
+        <div class="topbar">
+
+            <div class="username">
+                {{ request.user.username }}
+            </div>
+
+
+            <form action="{% url 'logout' %}" method="post">
+
+                {% csrf_token %}
+
+                <button type="submit" class="logout-button">
+                    Logout
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- PAGE CONTENT -->
+
+        <div class="content">
+
+            {% block content %}
+
+            {% endblock %}
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

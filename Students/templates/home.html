@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+
+{% block content %}
+
+<h1 class="page-title">
+    Welcome, {{ request.user.username }}!
+</h1>
+
+<p class="page-subtitle">
+    Here's an overview of your dashboard.
+</p>
+
+
+<div class="card">
+
+    <h2>
+        Welcome to the Student Management System
+    </h2>
+
+    <p style="margin-top: 10px; color: #6b7280;">
+        Use the sidebar to manage admissions and view student information.
+    </p>
+
+</div>
+
+{% endblock %}
